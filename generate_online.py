@@ -53,21 +53,21 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--url', type=str)
-    parser.add_argument('--api_key', type=str, default='your_api_key')
+    parser.add_argument('--api-key', type=str, default='your_api_key')
     
     parser.add_argument('--concurrency', type=int, default=2)
     parser.add_argument('--model', type=str, default="meta-llama/llama-3.1-8b-instruct")
     parser.add_argument('--temperature', type=float, default=0.3)
-    parser.add_argument('--min_p', type=float, default=0.75)
-    parser.add_argument('--max_tokens', type=int, default=100)
-    parser.add_argument('--system_prompt', type=str, default=None)
+    parser.add_argument('--min-p', type=float, default=0.75)
+    parser.add_argument('--max-tokens', type=int, default=100)
+    parser.add_argument('--system-prompt', type=str, default=None)
     
     parser.add_argument('--task', type=str, default="all")
     parser.add_argument('--source', type=str, default="all")
     parser.add_argument('--language', type=str, default="all")
     
-    parser.add_argument('--test_data_dir', type=str, default="test_sets")
-    parser.add_argument('--output_dir', type=str, default="outputs")
+    parser.add_argument('--test-data-dir', type=str, default="test_sets")
+    parser.add_argument('--output-dir', type=str, default="outputs")
 
     args = parser.parse_args()
     
