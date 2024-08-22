@@ -1,3 +1,60 @@
+# Language Confusion Benchmark with Generation Script
+
+I added output generation script to the official [Language Confusion Benchmark](https://github.com/for-ai/language-confusion) to check for language confusion in the various models.
+
+The output generation script allows for online inference using the API and offline (local) inference using [vLLM](https://github.com/vllm-project/vllm).
+
+## Installation
+
+```bash
+git clone https://github.com/for-ai/language-confusion.git
+cd language-confusion
+python -m venv env
+source env/bin/activate
+pip install -r requirements.txt
+
+# View the test sets
+unzip test_sets.zip
+```
+
+## Generation
+
+### Offline(vLLM)
+
+```bash
+python generate_offline.py --model [MODEL_NAME] --task [TASK] --source [SOURCEs] --language [LANGUAGEs] --tensor-parallel-size [#GPUs] --hf-token [YOUR_HF_TOKEN] --system-prompt [SYSTEM_PROMPT]
+```
+
+- [TASK]: all(default), monolingual, crosslingual
+- [SOURCEs]: all(default), aya, dolly, okapi, native
+- [LANGUAGEs]: all(default), ar, de, en, es, fr, hi, id, it, ja, ko, pt, ru, tr, vi, zh
+
+For instance, to evaluate the Korean and Japanese LPR/WPR of the [Qwen/Qwen2-7B-Instruct](Qwen/Qwen2-7B-Instruct) model using 2 GPUs with the default system prompt,
+
+```bash
+python generate_offline.py --model Qwen/Qwen2-7B-Instruct --language ko,ja --tensor-parallel-size 2 --hf-token "YOUR_HF_TOKEN" --system-prompt "You are a helpful assistant."
+```
+
+### Online(API)
+
+```bash
+python generate_online.py --url [URL] --api-key [API_KEY] --model [MODEL_NAME] --task [TASK] --source [SOURCEs] --language [LANGUAGEs] --concurrency [#_OF_CONCURRENT_QUERYS] --system-prompt [SYSTEM_PROMPT]
+```
+
+If you want to perform the same test using OpenRouter,
+
+```bash
+python generate_online.py --url https://openrouter.ai/api/v1/chat/completions --api_key "YOUR_OPENROUTER_KEY" --model qwen/qwen-2-7b-instruct --concurrency 2 --language ko,ja --system-prompt "You are a helpful assistant."
+```
+
+## Evaluation
+
+```bash
+python compute_metrics.py outputs/[MODEL_NAME].csv
+```
+
+---
+
 # Language Confusion Benchmark
 
 The Language Confusion Benchmark (LCB) evaluates to what extent LLMs are unable to consistently generate text in the user's desired language, i.e., their "language confusion".
