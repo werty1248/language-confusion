@@ -7,7 +7,7 @@ The output generation script allows for online inference using the API and offli
 ## Installation
 
 ```bash
-git clone https://github.com/for-ai/language-confusion.git
+git clone https://github.com/werty1248/language-confusion.git
 cd language-confusion
 python -m venv env
 source env/bin/activate
